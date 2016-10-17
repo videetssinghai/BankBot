@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
 from django.http import JsonResponse
+from .forms import UserForm
 
 from django.template import loader
 # Create your views here.
@@ -16,5 +17,11 @@ def chatbotResponse(request):
         'key': str(var)
     }
     return JsonResponse(response_data)
+
+def signup(request):
+    form = UserForm()
+    return render(request, 'signup.html', {'form':form})
+
+
 
 
