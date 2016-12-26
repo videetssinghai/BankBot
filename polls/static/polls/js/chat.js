@@ -1,4 +1,6 @@
-//links
+
+
+    //links
 //http://eloquentjavascript.net/09_regexp.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 nlp = window.nlp_compromise;
@@ -52,20 +54,28 @@ function newEntry() {
     document.getElementById("chatbox").value = "";
  $(document).ready(function(){
     $.ajax({
-    type: 'POST' ,
-    url: '{% url "polls.views.chatbotResponse" %}',
+    type: 'GET' ,
+    url: '/chat/chatbotResponse/',
     datatype: 'json' ,
     async: true,
     data:{
-        csrfmiddlewaretoken: '{{ csrf_token }}',
         sentence: lastUserMessage
     },
 
     success: function(json) {
-        $('#output').html(json.message);
+        messages.push(lastUserMessage);
+
+    //add the chatbot's name and message to the array messages
+    messages.push("<b>" + botName + ":</b> " + json.key);
+
          for (var i = 1; i < 8; i++) {
       if (messages[messages.length - i])
-        document.getElementById("chatlog" + i).innerHTML = {{ key }};
+      {
+
+      document.getElementById("chatlog" + i).innerHTML =messages[messages.length - i] ;
+
+
+    }
     }
     }
   });
@@ -81,7 +91,7 @@ function newEntry() {
     // says the message using the text to speech function written below
     //Speech(botMessage);
     //outputs the last few array elements of messages to html
-   
+
   }
 }
 
@@ -110,6 +120,7 @@ function keyPress(e) {
   if (key == 13 || key == 3) {
     //runs this function when enter is pressed
     newEntry();
+
   }
   if (key == 38) {
     console.log('hi')

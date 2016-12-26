@@ -4,7 +4,10 @@ from .models import User
 
 
 class UserForm(forms.ModelForm):
-    Password = forms.CharField(widget=forms.PasswordInput)
+    FirstName = forms.CharField()
+    LastName = forms.CharField()
+    Email = forms.EmailField()
+    Password = forms.PasswordInput()
 
     class Meta:
         model = User
@@ -15,3 +18,20 @@ class UserForm(forms.ModelForm):
             'Password',
 
         ]
+
+
+
+
+class LoginForm (forms.ModelForm):
+    Email = forms.EmailField()
+    Password = forms.PasswordInput()
+
+    class Meta:
+
+        model = User
+        fields = {
+            'Email',
+            'Password'
+
+
+        }
